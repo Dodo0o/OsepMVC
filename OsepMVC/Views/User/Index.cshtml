@@ -1,0 +1,76 @@
+﻿@model OsepMVC.Models.User
+
+@{
+    ViewData["Title"] = "Profilim";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewData["Title"]</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/user/index.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card shadow-lg">
+            <div class="card-header bg-primary text-white text-center">
+                <i class="fas fa-user fa-3x"></i>
+                <h3 class="mb-0 d-inline"> Hesabım</h3>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title text-center">Profilim</h4>
+                <hr />
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <dl class="row">
+                            <dt class="col-sm-3">
+                                @Html.DisplayNameFor(model => model.FirstName)
+                            </dt>
+                            <dd class="col-sm-9">
+                                @Html.DisplayFor(model => model.FirstName)
+                            </dd>
+                            <dt class="col-sm-3">
+                                @Html.DisplayNameFor(model => model.LastName)
+                            </dt>
+                            <dd class="col-sm-9">
+                                @Html.DisplayFor(model => model.LastName)
+                            </dd>
+                            <dt class="col-sm-3">
+                                @Html.DisplayNameFor(model => model.Email)
+                            </dt>
+                            <dd class="col-sm-9">
+                                @Html.DisplayFor(model => model.Email)
+                            </dd>
+                            <dt class="col-sm-3">
+                                @Html.DisplayNameFor(model => model.Role)
+                            </dt>
+                            <dd class="col-sm-9">
+                                @Html.DisplayFor(model => model.Role)
+                            </dd>
+                            <dt class="col-sm-3">
+                                @Html.DisplayNameFor(model => model.University)
+                            </dt>
+                            <dd class="col-sm-9">
+                                @Html.DisplayFor(model => model.University)
+                            </dd>
+                        </dl>
+                        <div class="text-center mt-4">
+                            <a class="btn btn-primary btn-lg" asp-action="Edit" asp-route-id="@Model.UserId">Profili Düzenle</a>
+                            <a class="btn btn-danger btn-lg" asp-action="Delete" asp-route-id="@Model.UserId">Hesabı Sil</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
+</body>
+</html>

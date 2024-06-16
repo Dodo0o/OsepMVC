@@ -1,0 +1,58 @@
+﻿body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+.card {
+    border-radius: 20px;
+    margin-top: 50px;
+    border: none;
+}
+
+.card-header {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    background-color: #007bff;
+    color: white;
+    padding: 15px 20px;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+    .card-header i {
+        margin-bottom: 15px;
+    }
+
+.card-body {
+    padding: 2rem;
+}
+
+.card-title {
+    font-size: 1.75rem;
+    color: #007bff;
+}
+
+.table {
+    margin-top: 20px;
+}
+
+    .table th, .table td {
+        vertical-align: middle;
+    }
+
+    .table thead th {
+        background-color: #007bff;
+        color: white;
+        font-weight: bold;
+        border: none;
+    }
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}

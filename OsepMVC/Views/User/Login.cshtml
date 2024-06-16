@@ -1,0 +1,63 @@
+﻿@model OsepMVC.Models.LoginViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <title>OSEP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" />
+    <script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <link rel="stylesheet" href="~/css/user/login/login.css" type="text/css" media="all" />
+</head>
+
+<body>
+    <section class="w3l-forms-23">
+        <div class="forms23-block-hny">
+            <div class="wrapper">
+                <h1>Öğrenci Sosyal Etkinlik Platformu Giriş Ekranı</h1>
+                <div class="d-grid forms23-grids">
+                    <div class="form23">
+                        <div class="main-bg">
+                            <h6 class="sec-one">Hoşgeldiniz</h6>
+                            <div class="speci-login first-look">
+                                <img src="~/images/login/user.png" alt="" class="img-responsive">
+                            </div>
+                        </div>
+                        <div class="bottom-content">
+                            <form asp-action="Login" method="post">
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                                <input type="email" name="email" class="input-form" placeholder="E-Mailiniz" required="required" asp-for="Email" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                                <input type="password" name="password" class="input-form" placeholder="Şifreniz" required="required" asp-for="Password" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                                <button type="submit" class="loginhny-btn btn">Giriş Yapın</button>
+                            </form>
+                            <p>Üye değil misiniz? <a href="~/User/Register">Hemen Üye Olun</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="w3l-copy-right text-center">
+                    <p>
+                        © 2024 Osep Öğrenci Platformu Tüm Hakları Saklıdır. | Doğukan Fidan
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+</body>
+
+</html>

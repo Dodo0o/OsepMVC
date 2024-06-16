@@ -1,0 +1,185 @@
+﻿@model OsepMVC.Models.Event
+
+@{
+    ViewData["Title"] = "Etkinlik Detayları";
+    var userId = Context.Session.GetString("UserId");
+
+    if (string.IsNullOrEmpty(userId))
+    {
+        Context.Response.Redirect("/User/Login");
+    }
+
+    var isAdmin = ViewBag.IsAdmin != null && (bool)ViewBag.IsAdmin;
+    bool userParticipated = userId != null && Model.Participations.Any(p => p.UserId == int.Parse(userId));
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>@ViewData["Title"]</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/css/event/details.css" rel="stylesheet" type="text/css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container mt-5">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+        <div class="card shadow-lg">
+            <div class="card-header bg-primary text-white text-center">
+                <i class="fas fa-calendar-alt fa-3x"></i>
+                <h3 class="mb-0 d-inline"> Etkinlik Detayları</h3>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title text-center">@Model.Title</h4>
+                <hr />
+                <dl class="row">
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Description)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Description)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Date)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Date)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Type)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Type)
+                    </dd>
+                    <dt class="col-sm-2">
+                        Oylar
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Model.Votes.Count
+                    </dd>
+                    @if (Model.Price.HasValue && Model.Price.Value > 0)
+                    {
+                        <dt class="col-sm-2">
+                            Fiyat
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Model.Price.Value.ToString("C")
+                        </dd>
+                    }
+                    else
+                    {
+                        <dt class="col-sm-2">
+                            Fiyat
+                        </dt>
+                        <dd class="col-sm-10">
+                            Ücretsiz
+                        </dd>
+                    }
+                    <dt class="col-sm-2">
+                        Adres
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Address)
+                    </dd>
+                    @if (Model.ImagePath != null)
+                    {
+                        <dt class="col-sm-2">
+                            Resim
+                        </dt>
+                        <dd class="col-sm-10">
+                            <img src="@Model.ImagePath" alt="Etkinlik Resmi" class="img-fluid event-image">
+                        </dd>
+                    }
+                </dl>
+            </div>
+            <div class="card-footer text-center">
+                <form asp-action="Vote" method="post" class="d-inline">
+                    <input type="hidden" name="eventId" value="@Model.EventId" />
+                    <button type="submit" class="btn btn-success">Oy Ver</button>
+                </form>
+                @if (userParticipated)
+                {
+                    <form asp-action="CancelParticipation" method="post" class="d-inline">
+                        <input type="hidden" name="eventId" value="@Model.EventId" />
+                        <button type="submit" class="btn btn-warning">Katılımı İptal Et</button>
+                    </form>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-primary" onclick="submitParticipationForm(@Model.EventId, @Model.Price)">Katıl</button>
+                }
+                <a asp-action="Index" class="btn btn-secondary">Listeye Dön</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function submitParticipationForm(eventId, price) {
+            var isPaidEvent = price !== null && price > 0;
+            if (isPaidEvent) {
+                var form = $('<form>', {
+                    method: 'GET',
+                    action: '/Event/ConfirmParticipation'
+                });
+                var hiddenField = $('<input>', {
+                    type: 'hidden',
+                    name: 'eventId',
+                    value: eventId
+                });
+                form.append(hiddenField);
+                $('body').append(form);
+                form.submit();
+            } else {
+                var form = $('<form>', {
+                    method: 'POST',
+                    action: '/Event/Participate'
+                });
+                var hiddenField = $('<input>', {
+                    type: 'hidden',
+                    name: 'eventId',
+                    value: eventId
+                });
+                form.append(hiddenField);
+                $('body').append(form);
+                form.submit();
+            }
+        }
+    </script>
+    @* <script>
+    function confirmParticipation(eventId, price) {
+    var isPaidEvent = price !== null && price > 0;
+    if (isPaidEvent) {
+    if (confirm("Katılmak istediğiniz etkinlik ücretli bir etkinliktir. Yine de devam etmek istiyor musunuz?")) {
+    alert("Tebrikler! Başarılı şekilde etkinliğe katıldınız. Etkinlik yetkilisi tarafından ödeme için kısa zaman içerisinde e-mailinize gerekli talimatlar gönderilecektir. İyi eğlenceler!");
+    submitParticipationForm(eventId);
+    }
+    } else {
+    submitParticipationForm(eventId);
+    }
+    }
+
+    function submitParticipationForm(eventId) {
+    var form = $('<form>', {
+    method: 'POST',
+    action: '/Event/Participate'
+    });
+    var hiddenField = $('<input>', {
+    type: 'hidden',
+    name: 'eventId',
+    value: eventId
+    });
+    form.append(hiddenField);
+    $('body').append(form);
+    form.submit();
+    }
+    </script> *@
+</body>
+</html>

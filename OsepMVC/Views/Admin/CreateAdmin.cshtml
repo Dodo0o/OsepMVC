@@ -1,0 +1,87 @@
+﻿@model OsepMVC.Models.User
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OSEP ADMIN KULLANICI EKLEME</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <link href="~/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all">
+    <link href="~/css/user/register/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900" rel="stylesheet">
+</head>
+<body>
+    <div class="signupform">
+        <h1>Admin Kullanıcı Ekleme</h1>
+        <div class="container">
+            <div class="agile_info">
+                <div class="w3l_form">
+                    <div class="left_grid_info">
+                        <h3>Admin Kullanıcı Ekleme Sayfasına Hoşgeldiniz!</h3>
+                        <h4>Bu sayfadan yeni bir admin kullanıcı ekleyebilirsiniz.</h4>
+                        <p>Admin kullanıcılar, sistemdeki diğer kullanıcıların yönetim ve denetim işlevlerini yerine getirebilir. Lütfen tüm bilgileri eksiksiz ve doğru şekilde doldurun.</p>
+                        <ul class="social_section_1info">
+                            <li><a href="#" class="w3_facebook"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#" class="w3_twitter"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#" class="w3_instagram"><i class="fa fa-instagram"></i></a></li>
+                            <li><a href="#" class="w3_google"><i class="fa fa-google-plus"></i></a></li>
+                            <li><a href="#" class="w3_pinterest"><i class="fa fa-pinterest"></i></a></li>
+                            <li><a href="#" class="w3_vimeo"><i class="fa fa-vimeo"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="w3_info">
+                    <h2>Admin Hesabı Oluştur</h2>
+                    <p>Yeni bir admin hesabı oluşturmak için aşağıdaki formu doldurun.</p>
+                    <form asp-action="CreateAdmin" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div> 
+                        <div class="input-group">
+                            <span><i class="fa fa-user" aria-hidden="true"></i></span>
+                            <input asp-for="FirstName" placeholder="İsim" class="input-form" />
+                        </div>
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                        <div class="input-group">
+                            <span><i class="fa fa-user" aria-hidden="true"></i></span>
+                            <input asp-for="LastName" placeholder="Soyisim" class="input-form" />
+                        </div>
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                        <div class="input-group">
+                            <span><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                            <input asp-for="Email" placeholder="Email" class="input-form" />
+                        </div>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                        <div class="input-group">
+                            <span><i class="fa fa-lock" aria-hidden="true"></i></span>
+                            <input asp-for="Password" type="Password" placeholder="Şifre" class="input-form" />
+                        </div>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                        <div class="input-group">
+                            <span><i class="fa fa-university" aria-hidden="true"></i></span>
+                            <input asp-for="University" placeholder="Üniversite" class="input-form" />
+                        </div>
+                        <span asp-validation-for="University" class="text-danger"></span>
+                        <div class="input-group">
+                            <span><i class="fa fa-graduation-cap" aria-hidden="true"></i></span>
+                            <select asp-for="Role" class="input-form">
+                                <option value="Student">Öğrenci</option>
+                                <option value="Academic">Akademisyen</option>
+                                <option value="Admin">Admin</option>
+                            </select>
+                        </div>
+                        <span asp-validation-for="Role" class="text-danger"></span>
+                        <button class="btn btn-danger btn-block" type="submit">Admin Hesabı Oluştur</button>
+                    </form>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="footer">
+            <p>&copy; Admin Kullanıcı Ekleme Formu 2024. Osep Tüm Hakları Saklıdır | Tasarım: Doğukan Fidan</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Ana Sayfa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/home.css" />
+}
+
+<div class="home-background">
+    <div class="jumbotron">
+        <h1 class="display-4">OsepMVC'ye Hoşgeldiniz!</h1>
+        <p class="lead">Etkinlikleri keşfetmeye başlayın.</p>
+        <hr class="my-4">
+        <p>Türkçe Öğrenci Sosyal Etkinlik Platformu, öğrencilerin ve akademisyenlerin sosyal ve akademik olarak etkinlik oluşturabildikleri bir platformdur. Bu platform sayesinde, etkinliklerinizi oluşturabilir, katılabilir ve topluluğunuzla etkileşimde bulunabilirsiniz.</p>
+        <p>
+            <a class="btn btn-primary btn-lg" asp-controller="Home" asp-action="Events">Etkinliklere Git</a>
+        </p>
+        <p>
+            <a class="btn btn-login" asp-controller="User" asp-action="Login">
+                <i class="fas fa-sign-in-alt"></i> Giriş Yap
+            </a>
+            <a class="btn btn-register" asp-controller="User" asp-action="Register">
+                <i class="fas fa-user-plus"></i> Kayıt Ol
+            </a>
+        </p>
+    </div>
+</div>

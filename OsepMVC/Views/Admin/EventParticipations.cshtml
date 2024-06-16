@@ -1,0 +1,53 @@
+﻿@model OsepMVC.Models.Event
+
+@{
+    ViewData["Title"] = "Etkinliğe Katılan Kişiler";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewData["Title"]</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/admin/eventParticipations.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card shadow-lg">
+            <div class="card-header bg-primary text-white text-center">
+                <i class="fas fa-users fa-3x"></i>
+                <h3 class="mb-0 d-inline"> Etkinliğe Katılan Kişiler</h3>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title text-center">@Model.Title</h4>
+                <hr />
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Kullanıcı Adı</th>
+                            <th>Email</th>
+                            <th>Üniversite</th>
+                            <th>Katılım Tarihi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var participation in Model.Participations)
+                        {
+                            <tr>
+                                <td>@participation.User.FirstName @participation.User.LastName</td>
+                                <td>@participation.User.Email</td>
+                                <td>@participation.User.University</td>
+                                <td>@participation.ParticipationDate</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

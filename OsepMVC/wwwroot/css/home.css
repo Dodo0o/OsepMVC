@@ -1,0 +1,72 @@
+﻿html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.home-background {
+    background-image: url('../images/welcome-background.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+main {
+    flex: 1;
+}
+
+.jumbotron {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 2rem 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    max-width: 80%;
+}
+
+    .jumbotron .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+        .jumbotron .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+.btn-login {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+}
+
+.btn-register {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: white;
+}
+
+footer {
+    background-color: rgba(255, 255, 255, 0.8);
+    width: 100%;
+    padding: 0.5rem 0;
+    box-shadow: 0 -0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    text-align: center;
+    font-size: 0.8rem;
+    position: relative;
+    bottom: 0;
+}

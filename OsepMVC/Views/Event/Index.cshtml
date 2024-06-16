@@ -1,0 +1,96 @@
+﻿@model IEnumerable<OsepMVC.Models.Event>
+
+@{
+    ViewData["Title"] = "Etkinlikler";
+    string selectedCategory = ViewBag.Category as string;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewData["Title"]</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/event/index.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <style>
+        .filter-label {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .filter-buttons .btn {
+            border-radius: 20px;
+            margin: 0 5px;
+        }
+        .btn-create {
+            background-color: #28a745;
+            color: white;
+            margin-right: 15px;
+        }
+        .btn-create:hover {
+            background-color: #218838;
+        }
+        .card-text strong {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">@ViewData["Title"]</h1>
+        <h4 class="text-center mt-3">Filtreleme</h4>
+        <div class="filter-buttons">
+            <a class="btn btn-create" asp-action="Create" asp-controller="Event">Yeni Etkinlik Oluştur</a>
+            <a asp-action="Index" asp-route-category="All" class="btn btn-primary mx-2 rounded-pill @(selectedCategory == "All" ? "active" : "")">Tümü</a>
+            <a asp-action="Index" asp-route-category="Social" class="btn btn-success mx-2 rounded-pill @(selectedCategory == "Social" ? "active" : "")">Sosyal</a>
+            <a asp-action="Index" asp-route-category="Academic" class="btn btn-info mx-2 rounded-pill @(selectedCategory == "Academic" ? "active" : "")">Akademik</a>
+        </div>
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <img src="@item.ImagePath" class="card-img-top" alt="Etkinlik Resmi">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Title</h5>
+                            <p class="card-text"><strong>Etkinlik Tarihi:</strong> @item.Date.ToShortDateString()</p>
+                            <p class="card-text"><strong>Açıklama:</strong> @item.Description</p>
+                            <p class="card-text"><strong>Etkinlik Tipi:</strong> @(item.Type == "Social" ? "Sosyal" : "Akademik")</p>
+                            <p class="card-text"><strong>Adres:</strong> @item.Address</p>
+                            @if (!item.Price.HasValue || item.Price.Value == 0)
+                            {
+                                <p class="card-text"><strong>Fiyat:</strong> Ücretsiz</p>
+                            }
+                            else
+                            {
+                                <p class="card-text"><strong>Fiyat:</strong> @item.Price.Value.ToString("C")</p>
+                            }
+                            <p class="card-text"><strong>Oy Sayısı:</strong> @item.Votes.Count</p>
+                            <a href="@Url.Action("Details", new { id = item.EventId })" class="btn btn-info">Detaylar</a>
+                            <form asp-action="Vote" method="post" class="d-inline">
+                                <input type="hidden" name="eventId" value="@item.EventId" />
+                                <button type="submit" class="btn btn-success">Oy Ver</button>
+                            </form>
+                            @if (Context.Session.GetString("IsAdmin") == "true")
+                            {
+                                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.EventId">Düzenle</a>
+                                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.EventId">Sil</a>
+                                <a asp-action="EventParticipations" asp-controller="Admin" asp-route-eventId="@item.EventId" class="btn btn-secondary">Katılımcılar</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+﻿@model IEnumerable<OsepMVC.Models.Event>
+
+@{
+    ViewData["Title"] = "Etkinlikler";
+}
+
+<h1>Etkinlikler</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Title)</th>
+            <th>@Html.DisplayNameFor(model => model.Description)</th>
+            <th>@Html.DisplayNameFor(model => model.Date)</th>
+            <th>@Html.DisplayNameFor(model => model.Type)</th>
+            <th>@Html.DisplayNameFor(model => model.User.FirstName)</th>
+            <th>@Html.DisplayNameFor(model => model.Votes.Count)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                <td>@Html.DisplayFor(modelItem => item.Date)</td>
+                <td>@Html.DisplayFor(modelItem => item.Type)</td>
+                <td>@Html.DisplayFor(modelItem => item.User.FirstName)</td>
+                <td>@Html.DisplayFor(modelItem => item.Votes.Count)</td>
+                <td>
+                    <a asp-action="EditEvent" asp-route-id="@item.EventId" class="btn btn-warning">Düzenle</a> |
+                    <a asp-action="DeleteEvent" asp-route-id="@item.EventId" class="btn btn-danger">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

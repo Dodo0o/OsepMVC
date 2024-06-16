@@ -1,0 +1,41 @@
+﻿@model OsepMVC.Models.User
+
+@{
+    ViewData["Title"] = "Kullanıcı Sil";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kullanıcı Sil</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/admin/deleteuser.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card shadow-sm">
+            <div class="card-header bg-danger text-white">
+                <h3>Kullanıcı Sil</h3>
+            </div>
+            <div class="card-body">
+                <h4 class="text-center mb-4">Bu kullanıcıyı silmek istediğinizden emin misiniz?</h4>
+                <div class="user-details">
+                    <p><strong>İsim:</strong> @Html.DisplayFor(model => model.FirstName)</p>
+                    <p><strong>Soyisim:</strong> @Html.DisplayFor(model => model.LastName)</p>
+                    <p><strong>Email:</strong> @Html.DisplayFor(model => model.Email)</p>
+                    <p><strong>Rol:</strong> @Html.DisplayFor(model => model.Role)</p>
+                    <p><strong>Üniversite:</strong> @Html.DisplayFor(model => model.University)</p>
+                </div>
+                <form asp-action="DeleteUser" method="post" class="text-center mt-4">
+                    <input type="hidden" asp-for="UserId" />
+                    <button type="submit" class="btn btn-danger btn-lg">Sil</button>
+                    <a asp-action="Users" class="btn btn-secondary btn-lg ml-3">Listeye Geri Dön</a>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
